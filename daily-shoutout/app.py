@@ -9,7 +9,7 @@ logger.setLevel(logging.INFO)
 people = [
     "Jeff Bezos",
     "Elon Musk",
-    "Rupurt Murdoch",
+    "Rupert Murdoch",
     "Donald J. Trump",
     "Stanley Kroenke",
     "Andrew Beal",
