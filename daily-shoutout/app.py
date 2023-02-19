@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 import random
@@ -54,12 +55,21 @@ def sendTweet(tweet_string):
         )  
     client.create_tweet(text = tweet_string)
 
+def returnResponse(response_string):
+    return{
+        "statusCode": 200,
+        "body": json.dumps(response_string)
+    }
+
 
 def lambda_handler(event, context):
     person = people[get_random_index(len(people))]
     cause = causes[get_random_index(len(causes))]
-
-    sendTweet(f"Noted billionare {person} once again contributes nothing to {cause}.")
+    message_string = f"Noted billionare {person} once again contributes nothing to {cause}."
+    if event.get("source", False) == "aws.events":
+        sendTweet(message_string)
+    else:
+        returnResponse(message_string)
 
 if __name__ == "__main__":
     lambda_handler(None, None)
