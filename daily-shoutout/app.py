@@ -55,6 +55,7 @@ def sendTweet(tweet_string):
         )  
     client.create_tweet(text = tweet_string)
 
+
 def returnResponse(response_string):
     return{
         "statusCode": 200,
@@ -70,6 +71,7 @@ def lambda_handler(event, context):
         sendTweet(message_string)
     else:
         returnResponse(message_string)
+
 
 if __name__ == "__main__":
     lambda_handler(None, None)
