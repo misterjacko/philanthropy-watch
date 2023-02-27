@@ -70,8 +70,9 @@ def lambda_handler(event, context):
     if event.get("source", False) == "aws.events":
         sendTweet(message_string)
     else:
-        returnResponse(message_string)
+        return returnResponse(message_string)
 
 
 if __name__ == "__main__":
-    lambda_handler(None, None)
+    response = lambda_handler({}, None)
+    print(response)
