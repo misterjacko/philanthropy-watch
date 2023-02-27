@@ -40,7 +40,7 @@ def get_random_index(list_length):
     return int(random.uniform(0, list_length))
 
 
-def sendTweet(tweet_string):
+def send_tweet(tweet_string):
     consumer_key = os.environ['TWITTER_CONSUMER_KEY']
     consumer_secret = os.environ['TWITTER_CONSUMER_SECRET']
     access_token = os.environ['TWITTER_ACCESS_TOKEN']
@@ -56,7 +56,7 @@ def sendTweet(tweet_string):
     client.create_tweet(text = tweet_string)
 
 
-def returnResponse(response_string):
+def return_response(response_string):
     return{
         "statusCode": 200,
         "body": json.dumps(response_string)
@@ -64,13 +64,13 @@ def returnResponse(response_string):
 
 
 def lambda_handler(event, context):
-    person = people[get_random_index(len(people))]
-    cause = causes[get_random_index(len(causes))]
+    person = random.choice(people)
+    cause = random.choice(causes)
     message_string = f"Noted billionare {person} once again contributes nothing to {cause}."
     if event.get("source", False) == "aws.events":
-        sendTweet(message_string)
+        send_tweet(message_string)
     else:
-        return returnResponse(message_string)
+        return return_response(message_string)
 
 
 if __name__ == "__main__":
